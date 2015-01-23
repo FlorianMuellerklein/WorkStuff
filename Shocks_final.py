@@ -84,7 +84,9 @@ def shocks(starttime):
     #
     times = []
     for i in range(0,4):
-        times.append(np.around(random.randint(1, 41)))
+        times.append(time.time() + np.around(random.randint(1, 41)))
+        
+    print times
     
     # 
     # writing timing of onset of shock stim to file
