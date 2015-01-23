@@ -7,7 +7,6 @@ import numpy as np
 # get subject number
 #
 subject = raw_input('Enter participant id ... ')
-#
 
 # initialize data files
 #
@@ -15,7 +14,6 @@ open(('ShocksTiming' + '/' + str(subject) + '_shocks.txt'), 'a').close()
 open(('ShocksTiming' + '/' + str(subject) + '_shockstim.txt'), 'a').close()
 open(('ShocksTiming' + '/' + str(subject) + '_noshocks.txt'), 'a').close()
 open(('ShocksTiming' + '/' + str(subject) + '_fixation.txt'), 'a').close()
-#
 
 # initialize pygame window
 #
@@ -25,7 +23,6 @@ h = 600
 size = (w,h)
 screen = pygame.display.set_mode((size))#, pygame.FULLSCREEN)
 pygame.mouse.set_visible(False)
-#
 
 def wait_4_scanner():
     task_trig = serial.Serial(0)
@@ -85,14 +82,9 @@ def shocks(starttime):
     #
     # generate 4 random times to administer shocks
     #
-    randtime1 = np.around(random.randint(1, 40))
-    shocktime1 = time.time() + randtime1
-    randtime2 = np.around(random.randint(1, 40))
-    shocktime2 = time.time() + randtime2
-    randtime3 = np.around(random.randint(1, 40))
-    shocktime3 = time.time() + randtime3
-    randtime4 = np.around(random.randint(1, 40))
-    shocktime4 = time.time() + randtime4
+    times = []
+    for i in range(0,4):
+        times.append(np.around(random.randint(1, 41)))
     
     # 
     # writing timing of onset of shock stim to file
@@ -114,34 +106,13 @@ def shocks(starttime):
     stop = time.time() + 40
     while time.time() < stop :
 
-            if time.time() == shocktime1:
+            if time.time() in times:
                     print 'shock'
                     trigger_shock()
                     timing = time.time() - starttime
                     with open(('ShocksTiming' + '/' + str(subject) + "_shocks.txt"), "a") as myfile:
                         myfile.write(str(timing) + '\n')
 
-            if time.time() == shocktime2:
-                    print 'shock'
-                    trigger_shock()
-                    timing = time.time() - starttime
-                    with open(('ShocksTiming' + '/' + str(subject) + "_shocks.txt"), "a") as myfile:
-                        myfile.write(str(timing) + '\n')
-
-            if time.time() == shocktime3:
-                    print 'shock'
-                    trigger_shock()
-                    timing = time.time() - starttime
-                    with open(('ShocksTiming' + '/' + str(subject) + "_shocks.txt"), "a") as myfile:
-                        myfile.write(str(timing) + '\n')
-
-            if time.time() == shocktime4:
-                    print 'shock'
-                    trigger_shock()
-                    timing = time.time() - starttime
-                    with open(('ShocksTiming' + '/' + str(subject) + "_shocks.txt"), "a") as myfile:
-                        myfile.write(str(timing) + '\n')
-    
     fixation(starttime)
     
 def main():
