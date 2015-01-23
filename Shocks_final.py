@@ -32,9 +32,10 @@ def wait_4_scanner():
             break
             
 def trigger_shock():
-    shock_trig = serial.Serial(0)
-    shock_trig.write(str(1))
-    shock_trig.close()
+    #shock_trig = serial.Serial(0)
+    #shock_trig.write(str(1))
+    #shock_trig.close()
+    print 'shock'
     
 def fixation(starttime):
     print 'fixation'
@@ -53,7 +54,7 @@ def fixation(starttime):
     #
     stop = time.time() + 20
     while time.time() < stop:
-        img = pygame.image.load('G:\Python\Shocks\cross.bmp')
+        img = pygame.image.load('/Volumes/CRUZER/Python/Shocks/cross.bmp')
         screen.blit(img, (100,0))
         pygame.display.flip()
         
@@ -71,7 +72,7 @@ def safe(starttime):
     #
     stop = time.time() + 40
     while time.time() < stop:
-            img2 = pygame.image.load('G:\Python\Shocks\safe.jpg')
+            img2 = pygame.image.load('/Volumes/CRUZER/Python/Shocks/safe.jpg')
             screen.blit(img2, (100,0))
             pygame.display.flip()
     
@@ -82,11 +83,13 @@ def shocks(starttime):
     #
     # generate 4 random times to administer shocks
     #
-    times = []
+    shocktimes = []
     for i in range(0,4):
-        times.append(time.time() + np.around(random.randint(1, 41)))
+        stop = time.time() + np.around(random.randint(1, 50))
+        shocktimes.append(stop)
         
-    print times
+    print shocktimes
+    print time.time()
     
     # 
     # writing timing of onset of shock stim to file
@@ -98,7 +101,7 @@ def shocks(starttime):
     #
     # put up shock stim
     #
-    img = pygame.image.load('G:\Python\Shocks\danger.jpg')
+    img = pygame.image.load('/Volumes/CRUZER/Python/Shocks/danger.jpg')
     screen.blit(img, (100,0))
     pygame.display.flip()
         
@@ -108,8 +111,7 @@ def shocks(starttime):
     stop = time.time() + 40
     while time.time() < stop :
 
-            if time.time() in times:
-                    print 'shock'
+            if time.time() in shocktimes:
                     trigger_shock()
                     timing = time.time() - starttime
                     with open(('ShocksTiming' + '/' + str(subject) + "_shocks.txt"), "a") as myfile:
