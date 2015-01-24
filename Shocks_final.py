@@ -25,16 +25,16 @@ screen = pygame.display.set_mode((size))#, pygame.FULLSCREEN)
 pygame.mouse.set_visible(False)
 
 def wait_4_scanner():
-    task_trig = serial.Serial(0)
+    task_trig = serial.Serial(3)
     print 'wait for scanner ... '
     while True:
         if task_trig.read() > 0:
             break
             
 def trigger_shock():
-    #shock_trig = serial.Serial(0)
-    #shock_trig.write(str(1))
-    #shock_trig.close()
+    shock_trig = serial.Serial(4)
+    shock_trig.write(str(1))
+    shock_trig.close()
     print 'shock'
     
 def fixation(starttime):
@@ -123,7 +123,7 @@ def main():
     #
     # wait for scanner
     #
-    #wait_4_scanner()
+    wait_4_scanner()
     
     # get start time
     #
