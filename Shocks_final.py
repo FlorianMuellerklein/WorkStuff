@@ -134,7 +134,7 @@ def main():
     #
     # loop through task 10 times
     #
-    for i in range(1,10):
+    for i in range(1,11):
     
         # 
         # generate random number between 1 and 10 in order to choose with part we run
